@@ -7,12 +7,8 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, _from, next) => {
+router.beforeEach((to, _from, next) => {
   const auth = useAuthStore();
-
-  if (!auth.isLoaded) {
-    await auth.checkSession();
-  }
 
   const isAuthenticated = !!auth.user;
   const isAdmin = auth.user?.role === 'admin';

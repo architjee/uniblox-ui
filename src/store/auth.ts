@@ -1,32 +1,15 @@
 import type { User } from '@/types/api';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { signIn as apiSignIn, signOut as apiSignOut, getSession } from '@/services/auth';
+import { signIn as apiSignIn, signOut as apiSignOut } from '@/services/auth';
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null);
-  const isLoaded = ref(false);
-
-  async function checkSession() {
-    try {
-      const { data } = await getSession();
-      if (data?.user) {
-        user.value = data.user;
-      }
-      else {
-        user.value = null;
-      }
-    }
-    catch {
-      user.value = null;
-    }
-    finally {
-      isLoaded.value = true;
-    }
-  }
+  const token = ref<string | null>(null);
 
   async function signIn(email: string, password: string) {
     const { data } = await apiSignIn(email, password);
+    token.value = data.token;
     user.value = data.user;
   }
 
@@ -34,16 +17,25 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       await apiSignOut();
     }
+    catch {
+      // ignore — token is cleared regardless
+    }
     finally {
+      token.value = null;
       user.value = null;
     }
   }
 
   return {
     user,
-    isLoaded,
-    checkSession,
+    token,
     signIn,
     signOut,
   };
+}, {
+  persist: {
+    key: 'uniblox-auth',
+    storage: localStorage,
+    pick: ['user', 'token'],
+  },
 });

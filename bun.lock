@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "cae_ui",
+      "name": "uniblox-store-ui",
       "dependencies": {
         "@iconify-icons/ph": "^1.2.5",
         "@iconify-json/ph": "^1.2.2",
