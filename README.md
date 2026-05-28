@@ -1,23 +1,59 @@
-# Vue 3 + TypeScript + Vite
+# Uniblox Store UI
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Vue 3 storefront for the Uniblox ecommerce API.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Tech Stack
 
-## Installing
+- **Framework:** Vue 3 + TypeScript + Vite
+- **UI:** Tailwind CSS 4 + shadcn-vue components
+- **State:** Pinia (auth only) + persisted state
+- **HTTP:** Axios (Bearer token)
 
-`npm ci`
+## Setup
 
-## All API methods start with resolve and end with api
+```bash
+bun install
+```
 
-### To create a new job
+## Environment
 
-Call post at /file-upload to get presinged_urls, use presigned urls to upload files, call post at /job to create job and get job object
+Create `.env` in the project root:
 
-### To get list of jobs
+```
+VITE_API_BASE_URL=https://uniblox-341902256486.asia-south1.run.app
+```
 
-Call get at /jobs to get list of jobs
+If not set, it defaults to the above URL.
 
-### To get job status
+## Dev
 
-Call post at /job with cmd status and job_id to get job status.
+```bash
+bun run dev
+```
+
+## Build
+
+```bash
+bun run build
+```
+
+## Pages
+
+| Path             | View                                | Auth   |
+| ---------------- | ----------------------------------- | ------ |
+| `/`              | Products — browse and add to cart   | Public |
+| `/login`         | Sign in                             | Public |
+| `/signup`        | Create account                      | Public |
+| `/cart`          | View cart, apply coupon, checkout   | User   |
+| `/orders`        | Order history                       | User   |
+| `/admin`         | Analytics dashboard                 | Admin  |
+| `/admin/orders`  | All orders (paginated)              | Admin  |
+| `/admin/rewards` | Reward candidates, generate coupons | Admin  |
+| `/admin/coupons` | All generated coupons               | Admin  |
+
+## Pre-seeded Accounts
+
+| Role  | Email                | Password   |
+| ----- | -------------------- | ---------- |
+| User  | `test@test.com`      | `Test@123` |
+| Admin | `admintest@test.com` | `Test@123` |
