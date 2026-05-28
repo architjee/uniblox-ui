@@ -30,6 +30,18 @@ export interface Reward {
   updatedAt: string;
 }
 
+export interface Coupon {
+  id: number;
+  code: string;
+  discount: number;
+  status: string;
+  usedByOrderId: number | null;
+  rewardId: number | null;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Analytics {
   totalItemsPurchased: number;
   totalRevenue: number;

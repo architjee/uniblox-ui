@@ -31,6 +31,13 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
             </router-link>
           </NavigationMenuLink>
         </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink as-child>
+            <router-link to="/admin/coupons" class="rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent" exact-active-class="bg-accent font-medium">
+              Coupons
+            </router-link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
 

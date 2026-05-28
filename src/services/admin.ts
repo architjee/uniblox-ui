@@ -1,4 +1,4 @@
-import type { Analytics, Order, Reward } from '@/types/api';
+import type { Analytics, Coupon, Order, Reward } from '@/types/api';
 import { axiosInstance } from '@/lib/axiosInstance';
 
 export function getOrders(cursor?: number, limit = 20) {
@@ -13,6 +13,10 @@ export function getRewards() {
 
 export function generateCoupon(rewardId: number) {
   return axiosInstance.post<{ couponCode: string }>(`/admin/rewards/${rewardId}/generate`);
+}
+
+export function getCoupons() {
+  return axiosInstance.get<{ coupons: Coupon[] }>('/admin/coupons');
 }
 
 export function getAnalytics() {

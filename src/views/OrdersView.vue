@@ -63,8 +63,12 @@ onMounted(async () => {
               <Badge variant="secondary">{{ new Date(order.createdAt).toLocaleDateString() }}</Badge>
             </div>
             <div class="text-right">
-              <p class="font-semibold">₹{{ order.totalAmount }}</p>
-              <p v-if="order.discountAmount > 0" class="text-xs text-green-600">₹{{ order.discountAmount }} discount</p>
+              <template v-if="order.discountAmount > 0">
+                <p class="text-sm text-muted-foreground line-through">₹{{ order.totalAmount + order.discountAmount }}</p>
+                <p class="font-semibold">₹{{ order.totalAmount }}</p>
+                <p class="text-xs text-green-600">Saved ₹{{ order.discountAmount }}</p>
+              </template>
+              <p v-else class="font-semibold">₹{{ order.totalAmount }}</p>
             </div>
           </div>
           <Table>

@@ -43,6 +43,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'admin-rewards',
         component: () => import('@/views/admin/RewardsView.vue'),
       },
+      {
+        path: 'coupons',
+        name: 'admin-coupons',
+        component: () => import('@/views/admin/CouponsView.vue'),
+      },
     ],
   },
 ];
