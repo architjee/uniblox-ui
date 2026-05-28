@@ -66,6 +66,19 @@ async function handleSubmit() {
           </p>
         </form>
       </CardContent>
+      <div class="border-t px-6 py-3">
+        <p class="mb-2 text-xs text-muted-foreground">Autofill creds for-</p>
+        <div class="flex gap-2">
+          <Button type="button" variant="outline" size="sm" class="flex-1 text-xs"
+            @click="email='test@test.com'; password='Test@123'">
+            Test User
+          </Button>
+          <Button type="button" variant="destructive" size="sm" class="flex-1 text-xs"
+            @click="email='admintest@test.com'; password='Test@123'">
+            Admin
+          </Button>
+        </div>
+      </div>
     </Card>
   </div>
 </template>
