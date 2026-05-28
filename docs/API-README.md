@@ -31,7 +31,7 @@ npm run db:push
 npm run dev
 ```
 
-Open `http://localhost:3000/reference` for the interactive API reference.
+Open `http://localhost:8080/reference` for the interactive API reference.
 
 ## Testing
 
@@ -45,21 +45,43 @@ Uses an ephemeral SQLite database at `/tmp/uniblox-test.sqlite` — automaticall
 
 On startup, the server creates two test accounts:
 
-| Role  | Email                | Password   |
-| ----- | -------------------- | ---------- |
-| User  | `test@test.com`      | `password` |
-| Admin | `admintest@test.com` | `password` |
+| Role  | Email              | Password   |
+|-------|--------------------|------------|
+| User  | `test@test.com`    | `Test@123` |
+| Admin | `admintest@test.com` | `Test@123` |
+
+Use these payloads directly in the Scalar UI at `/reference` → Auth module → `POST /api/auth/sign-in/email`:
+
+**User login:**
+```json
+{
+  "email": "test@test.com",
+  "password": "Test@123",
+  "callbackURL": "",
+  "rememberMe": true
+}
+```
+
+**Admin login:**
+```json
+{
+  "email": "admintest@test.com",
+  "password": "Test@123",
+  "callbackURL": "",
+  "rememberMe": true
+}
+```
 
 ## Available Scripts
 
-| Command               | Description                       |
-| --------------------- | --------------------------------- |
-| `npm run dev`         | Start dev server with hot reload  |
-| `npm test`            | Run all tests (ephemeral DB)      |
-| `npm run build`       | TypeScript compile + path aliases |
-| `npm run db:push`     | Push schema to database           |
-| `npm run db:generate` | Generate SQL migration files      |
-| `npm run db:migrate`  | Run pending migrations            |
+| Command                | Description                              |
+|------------------------|------------------------------------------|
+| `npm run dev`          | Start dev server with hot reload         |
+| `npm test`             | Run all tests (ephemeral DB)             |
+| `npm run build`        | TypeScript compile + path aliases        |
+| `npm run db:push`      | Push schema to database          |
+| `npm run db:generate`  | Generate SQL migration files             |
+| `npm run db:migrate`   | Run pending migrations                   |
 
 ## Project Structure
 
@@ -80,10 +102,12 @@ src/
 │   │   ├── checkout.ts  # POST /cart/checkout (transaction)
 │   │   ├── types.ts
 │   │   └── test-helpers.ts
+│   ├── user/
+│   │   └── orders.ts    # GET /user/orders
 │   ├── admin/
 │   │   ├── orders.ts    # GET /admin/orders (cursor pagination)
 │   │   ├── rewards.ts   # GET /admin/rewards
-│   │   ├── coupons.ts   # POST /admin/rewards/:id/generate
+│   │   ├── coupons.ts   # GET /admin/coupons, POST /admin/rewards/:id/generate
 │   │   └── analytics.ts # GET /admin/analytics
 │   ├── products.ts      # GET /products
 │   ├── cart.test.ts
@@ -110,11 +134,23 @@ See [`docs/DECISIONS.md`](./docs/DECISIONS.md) for detailed rationale on stack c
 - **`POST /cart/add`** — Add item to cart (upserts by user)
 - **`POST /cart/checkout`** — Place order with optional coupon code
 - **`GET /products`** — List available products
+- **`GET /user/orders`** — Current user's order history
 - **Admin** (requires admin cookie):
   - `GET /admin/orders` — Paginated orders
+  - `GET /admin/coupons` — All coupons
   - `GET /admin/rewards` — All reward candidates
   - `POST /admin/rewards/:id/generate` — Approve reward, create coupon
   - `GET /admin/analytics` — Items sold, revenue, discounts given
 
-Full interactive docs at `http://localhost:3000/reference`.
-Also at top left you'll get drodown to switch to auth module, use it to generate tokens.
+Full interactive docs at `http://localhost:8080/reference`.
+Similar to swagger, use top left dropdown to switch between Auth and API modules.
+Generate toekn via /sign-in/email​, use it for rest of store APIs
+
+
+**Hosted versions:**
+- UI: https://uniblox-store.web.app
+
+- API: https://uniblox-341902256486.asia-south1.run.app
+- API reference: https://uniblox-341902256486.asia-south1.run.app/reference
+
+- UI Github - https://github.com/architjee/uniblox-ui
