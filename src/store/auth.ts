@@ -1,7 +1,7 @@
 import type { User } from '@/types/api';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { signIn as apiSignIn, signOut as apiSignOut } from '@/services/auth';
+import { signIn as apiSignIn, signOut as apiSignOut, signUp as apiSignUp } from '@/services/auth';
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null);
@@ -11,6 +11,13 @@ export const useAuthStore = defineStore('auth', () => {
     const { data } = await apiSignIn(email, password);
     token.value = data.token;
     user.value = data.user;
+  }
+
+  async function signUp(name: string, email: string, password: string) {
+    const { data } = await apiSignUp(name, email, password);
+    token.value = data.token;
+    user.value = data.user;
+    return data;
   }
 
   async function signOut() {
@@ -30,6 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     token,
     signIn,
+    signUp,
     signOut,
   };
 }, {

@@ -5,6 +5,10 @@ export function signIn(email: string, password: string) {
   return axiosInstance.post<SignInResponse>('/api/auth/sign-in/email', { email, password });
 }
 
+export function signUp(name: string, email: string, password: string) {
+  return axiosInstance.post<SignInResponse>('/api/auth/sign-up/email', { name, email, password });
+}
+
 export function signOut() {
   return axiosInstance.post<{ success: boolean }>('/api/auth/sign-out', {});
 }

@@ -84,9 +84,15 @@ async function loadMore() {
             {{ order.userId.slice(0, 8) }}…
           </TableCell>
           <TableCell>{{ order.totalItems }} item(s)</TableCell>
-          <TableCell>₹{{ order.totalAmount }}</TableCell>
           <TableCell>
-            <span v-if="order.discountAmount > 0" class="text-green-600">-₹{{ order.discountAmount }}</span>
+            <template v-if="order.discountAmount && order.discountAmount > 0">
+              <span class="text-sm text-muted-foreground line-through">₹{{ order.totalAmount + order.discountAmount }}</span>
+              <span class="ml-1">₹{{ order.totalAmount }}</span>
+            </template>
+            <span v-else>₹{{ order.totalAmount }}</span>
+          </TableCell>
+          <TableCell>
+            <span v-if="order.discountAmount && order.discountAmount > 0" class="text-green-600">-₹{{ order.discountAmount }}</span>
             <span v-else class="text-muted-foreground">—</span>
           </TableCell>
           <TableCell>{{ new Date(order.createdAt).toLocaleDateString() }}</TableCell>
