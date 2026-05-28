@@ -1,12 +1,20 @@
 <script setup lang="ts">
-// Minimal Skeleton App
+import { onMounted } from 'vue';
+import AppNav from '@/components/AppNav.vue';
+import { Toaster } from '@/components/ui/sonner';
+import { useAuthStore } from '@/store/auth';
+
+const auth = useAuthStore();
+
+onMounted(() => {
+  auth.checkSession();
+});
 </script>
 
 <template>
-  <main class="min-h-screen bg-background text-foreground flex items-center justify-center">
-    <div class="text-center space-y-4">
-      <h1 class="text-4xl font-bold">Skeleton Project</h1>
-      <p class="text-muted-foreground">Ready for development.</p>
-    </div>
-  </main>
+  <div class="min-h-screen">
+    <AppNav />
+    <router-view />
+    <Toaster />
+  </div>
 </template>

@@ -14,4 +14,11 @@ export default antfu({
     //   order: ['template', 'script', 'style'],
     // }],
   },
+  ignores: [
+    'node_modules/',
+    '.git/',
+    'dist/',
+    'coverage/',
+    '.agents/',
+  ],
 });
