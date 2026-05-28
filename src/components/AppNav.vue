@@ -48,6 +48,11 @@ async function handleSignOut() {
               </router-link>
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem v-if="auth.user">
+            <NavigationMenuLink as-child>
+              <router-link to="/orders" class="text-sm">Orders</router-link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
           <NavigationMenuItem v-if="auth.user?.role === 'admin'">
             <NavigationMenuLink as-child>
               <router-link to="/admin" class="text-sm">

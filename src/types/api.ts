@@ -8,6 +8,7 @@ export interface Product {
 export interface CartItem {
   productId: number;
   quantity: number;
+  price?: number;
 }
 
 export interface Order {
@@ -15,6 +16,8 @@ export interface Order {
   userId: string;
   items: CartItem[];
   totalAmount: number;
+  totalItems: number;
+  discountAmount?: number;
   createdAt: string;
 }
 
@@ -49,6 +52,22 @@ export interface AuthSession {
     userId: string;
   };
   user: User;
+}
+
+export interface UserOrderItem {
+  productId: number;
+  quantity: number;
+  price: number;
+}
+
+export interface UserOrder {
+  id: number;
+  items: UserOrderItem[];
+  totalAmount: number;
+  totalItems: number;
+  discountAmount: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface SignInResponse {
